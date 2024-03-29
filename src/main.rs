@@ -4,14 +4,14 @@ fn main() {
     let _world = &s[6..];
     let _whole = &s[..];
 
-    let word = first_word(&s);
+    let word = first_word(&s[..]);
     println!("{}", word);
-    let word1 = second_word(&s);
+    let word1 = second_word(&s[..]);
     println!("{}", word1);
     // s.clear();
 }
 
-fn first_word(s: &String) -> &str {
+fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
@@ -21,7 +21,7 @@ fn first_word(s: &String) -> &str {
     &s[..]
 }
 
-fn second_word(s:&String) -> &str {
+fn second_word(s: &str) -> &str {
     let bytes = s.as_bytes();
     let mut l:[usize;2] = [0;2];
     let mut idx = 0;
@@ -30,11 +30,11 @@ fn second_word(s:&String) -> &str {
             l[idx] = i;
             idx += 1;
             if idx >= l.len() {
-                return &s[l[0]..l[1]];
+                return &s[l[0]..l[1]].trim();
             }
             continue;
         }
     }
     l[idx] = s.len();
-    &s[l[0]..l[1]]
+    &s[l[0]..l[1]].trim()
 }
